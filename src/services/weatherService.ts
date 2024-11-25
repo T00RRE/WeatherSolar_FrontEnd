@@ -18,7 +18,7 @@ interface WeatherData {
 export const fetchWeatherData = async (latitude: number, longitude: number): Promise<WeatherData> => {
   try {
     const response = await fetch(
-      `http://localhost:8080/api/weather/forecast?latitude=${latitude}&longitude=${longitude}`
+      `${import.meta.env.VITE_API_URL}/weather/forecast?latitude=${latitude}&longitude=${longitude}`
     );
     if (!response.ok) {
       throw new Error('Failed to fetch weather data');
