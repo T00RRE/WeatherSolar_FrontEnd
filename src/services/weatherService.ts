@@ -18,13 +18,10 @@ if (!API_URL) throw new Error('VITE_API_URL not configured');
 
 export const fetchWeatherData = async (latitude: number, longitude: number): Promise<WeatherData> => {
   try {
-    // Usunięto podwójne /api
     const response = await fetch(
       `${API_URL}/weather/forecast?latitude=${latitude}&longitude=${longitude}`
     );
-    if (!response.ok) {
-      throw new Error(`API error: ${response.status}`);
-    }
+    if (!response.ok) throw new Error(`API error: ${response.status}`);
     return await response.json();
   } catch (error) {
     console.error('Error fetching weather data:', error);
