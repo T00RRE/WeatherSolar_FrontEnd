@@ -102,9 +102,9 @@ const WeatherDashboard = () => {
   };
 
   useEffect(() => {
-    // Próbuj pobrać lokalizację przy pierwszym załadowaniu
+    
     getCurrentLocation();
-  }, []); // pusty array oznacza, że efekt wykona się tylko raz przy montowaniu komponentu
+  }, []); 
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -121,7 +121,7 @@ const WeatherDashboard = () => {
     };
 
     fetchData();
-  }, [location]); // Dodano location do dependencies
+  }, [location]); 
 
   const handleLocationSelect = (lat: number, lng: number) => {
     setLocation({ lat, lng });
@@ -224,7 +224,7 @@ const WeatherDashboard = () => {
           </div>
         </div>
 
-        {/* Footer z takim samym stylem dark mode */}
+        
         <Footer weatherData={weatherData} />
       </div>
     </div>
