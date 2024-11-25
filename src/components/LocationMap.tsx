@@ -1,7 +1,6 @@
 // src/components/LocationMap.tsx
 import { MapContainer, TileLayer, Marker, useMapEvents } from 'react-leaflet';
 import 'leaflet/dist/leaflet.css';
-import { LatLng } from 'leaflet';
 import { useState } from 'react';
 
 // Fix for marker icons
