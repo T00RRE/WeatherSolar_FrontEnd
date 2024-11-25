@@ -1,5 +1,3 @@
-// src/services/weatherService.ts
-
 interface WeatherData {
   averagePressure: number;
   averageSunExposure: number;
@@ -15,13 +13,16 @@ interface WeatherData {
   }>;
 }
 
+const API_URL = import.meta.env.VITE_API_URL;
+if (!API_URL) throw new Error('VITE_API_URL not configured');
+
 export const fetchWeatherData = async (latitude: number, longitude: number): Promise<WeatherData> => {
   try {
     const response = await fetch(
-      `${import.meta.env.VITE_API_URL}/weather/forecast?latitude=${latitude}&longitude=${longitude}`
+      `${API_URL}/api/weather/forecast?latitude=${latitude}&longitude=${longitude}`
     );
     if (!response.ok) {
-      throw new Error('Failed to fetch weather data');
+      throw new Error(`API error: ${response.status}`);
     }
     return await response.json();
   } catch (error) {
