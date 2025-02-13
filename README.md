@@ -1,7 +1,8 @@
 # Weather App
-
+https://weather-app-frontend-4pp2.onrender.com/
 Aplikacja pogodowa z funkcją kalkulacji energii fotowoltaicznej.
-
+## Backend dla projektu 
+https://github.com/T00RRE/WeatherSolar_Backend
 ## Funkcjonalności
 - Prognoza pogody na 7 dni
 - Kalkulacja produkcji energii fotowoltaicznej
