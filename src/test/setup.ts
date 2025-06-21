@@ -1,7 +1,6 @@
 import '@testing-library/jest-dom';
 import { vi } from 'vitest';
 
-// Mock dla Leaflet (problemy z DOM w testach)
 Object.defineProperty(window, 'L', {
   value: {
     icon: () => ({}),
@@ -15,7 +14,6 @@ Object.defineProperty(window, 'L', {
   }
 });
 
-// Mock dla geolocation
 Object.defineProperty(navigator, 'geolocation', {
   value: {
     getCurrentPosition: vi.fn((success) => {
@@ -30,7 +28,6 @@ Object.defineProperty(navigator, 'geolocation', {
   writable: true,
 });
 
-// Mock dla matchMedia (używane w ThemeContext)
 Object.defineProperty(window, 'matchMedia', {
   writable: true,
   value: vi.fn().mockImplementation(query => ({
@@ -45,7 +42,6 @@ Object.defineProperty(window, 'matchMedia', {
   })),
 });
 
-// Mock dla localStorage
 const localStorageMock = {
   getItem: vi.fn(),
   setItem: vi.fn(),

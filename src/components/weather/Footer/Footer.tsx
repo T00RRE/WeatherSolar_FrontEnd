@@ -9,12 +9,7 @@ const Footer: React.FC<FooterProps> = ({ weatherData }) => {
   const maxTemp = Math.max(...weatherData.dailyForecasts.map(day => day.maxTemperature));
   const minTemp = Math.min(...weatherData.dailyForecasts.map(day => day.minTemperature));
   const averagePressure = weatherData.averagePressure;
-  
-  // Obliczanie średniej energii słonecznej
-  const averageSolarEnergy = weatherData.dailyForecasts.reduce(
-    (acc, day) => acc + day.solarEnergy, 
-    0
-  ) / weatherData.dailyForecasts.length;
+  const averageSolarEnergy = weatherData.averageSunExposure;
 
   const summaryCards = [
     {

@@ -1,56 +1,23 @@
 import React, { useState } from 'react';
 import { 
-  Sun, 
-  Cloud, 
-  CloudRain, 
-  CloudSnow, 
-  CloudDrizzle, 
-  CloudLightning, 
-  CloudFog, 
-  CloudHail, 
-  Cloudy, 
   Compass
 } from 'lucide-react';
 
 import { useWeather } from '../../../hooks/useWeather';
 import { useGeolocation } from '../../../hooks/useGeolocation';
-import { APP_CONFIG } from '../../../utils/constants';
-import { Location, WeatherIconConfig } from '../../../types/weather.types';
+import { CONSTANTS } from '../../../utils/constants';
+import { Location } from '../../../types/weather.types';
 
 import ThemeToggle from '../../common/ThemeToggle';
 import LoadingSpinner from '../../common/LoadingSpinner';
 import Footer from '../Footer/Footer';
 import LocationMap from '../../map/LocationMap/LocationMap';
-
-const getWeatherIcon = (weatherCode: number): WeatherIconConfig => {
-  switch (true) {
-    case weatherCode === 0:
-      return { icon: Sun, color: 'text-yellow-500' };
-    case weatherCode <= 3:
-      return { icon: Cloudy, color: 'text-gray-400' };
-    case weatherCode <= 48:
-      return { icon: CloudFog, color: 'text-gray-400' };
-    case weatherCode <= 55:
-      return { icon: CloudDrizzle, color: 'text-blue-400' };
-    case weatherCode <= 65:
-      return { icon: CloudRain, color: 'text-blue-500' };
-    case weatherCode <= 77:
-      return { icon: CloudSnow, color: 'text-blue-300' };
-    case weatherCode <= 82:
-      return { icon: CloudRain, color: 'text-blue-600' };
-    case weatherCode <= 86:
-      return { icon: CloudSnow, color: 'text-blue-400' };
-    case weatherCode === 95:
-      return { icon: CloudLightning, color: 'text-yellow-600' };
-    case weatherCode >= 96:
-      return { icon: CloudHail, color: 'text-gray-600' };
-    default:
-      return { icon: Cloud, color: 'text-gray-400' };
-  }
-};
+import { getWeatherIcon } from './getWeatherIcon';
+import LoadingScreen from '../../common/LoadingScreen';
+import ErrorMessage from '../../common/ErrorMessage';
 
 const WeatherDashboard: React.FC = () => {
-  const [location, setLocation] = useState<Location>(APP_CONFIG.DEFAULT_LOCATION);
+  const [location, setLocation] = useState<Location>(CONSTANTS.DEFAULT_LOCATION);
   
   const { weatherData, loading, error, fetchWeather } = useWeather(location);
   const { getCurrentLocation, loading: locationLoading, error: locationError } = useGeolocation();
@@ -72,29 +39,11 @@ const WeatherDashboard: React.FC = () => {
   };
 
   if (loading && !weatherData) {
-    return (
-      <div className="min-h-screen bg-gray-50 dark:bg-gray-900 flex items-center justify-center">
-        <LoadingSpinner size="lg" message="Pobieranie danych pogodowych..." />
-      </div>
-    );
+    return <LoadingScreen message="Pobieranie danych pogodowych..." />;
   }
 
   if (error && !weatherData) {
-    return (
-      <div className="min-h-screen bg-gray-50 dark:bg-gray-900 flex items-center justify-center">
-        <div className="text-center p-6">
-          <div className="text-red-600 dark:text-red-400 mb-4 text-lg">
-            {error}
-          </div>
-          <button 
-            onClick={() => fetchWeather(location)} 
-            className="px-6 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition-colors"
-          >
-            Spróbuj ponownie
-          </button>
-        </div>
-      </div>
-    );
+    return <ErrorMessage message={error} onRetry={() => fetchWeather(location)} />;
   }
 
   return (
@@ -104,7 +53,7 @@ const WeatherDashboard: React.FC = () => {
         <header className="mb-8">
           <div className="flex justify-between items-center">
             <h1 className="text-3xl font-bold text-gray-900 dark:text-white">
-              {APP_CONFIG.TITLE}
+              {CONSTANTS.TITLE}
             </h1>
             <ThemeToggle />
           </div>

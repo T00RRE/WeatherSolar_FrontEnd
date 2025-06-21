@@ -17,13 +17,10 @@ describe('ThemeToggle', () => {
     render(<ThemeToggle />);
     const button = screen.getByRole('button');
     
-    // Sprawdź początkowy stan (light theme - moon icon)
     expect(screen.getByTestId('moon-icon') || screen.getByLabelText(/switch to dark theme/i)).toBeInTheDocument();
     
-    // Kliknij przycisk
     fireEvent.click(button);
     
-    // Sprawdź czy zmienił się na dark theme (sun icon)
     expect(screen.getByTestId('sun-icon') || screen.getByLabelText(/switch to light theme/i)).toBeInTheDocument();
   });
 

@@ -1,4 +1,4 @@
-import { API_CONFIG } from '../../utils/constants';
+import { CONSTANTS } from '../../utils/constants';
 
 export class ApiError extends Error {
   constructor(
@@ -11,7 +11,6 @@ export class ApiError extends Error {
   }
 }
 
-// Helper function dla type checking
 const isError = (error: unknown): error is Error => {
   return error instanceof Error;
 };
@@ -24,7 +23,7 @@ export class ApiClient {
   private baseUrl: string;
   private timeout: number;
 
-  constructor(baseUrl: string = API_CONFIG.BASE_URL, timeout: number = API_CONFIG.TIMEOUT) {
+  constructor(baseUrl: string = CONSTANTS.BASE_URL, timeout: number = 10000) {
     this.baseUrl = baseUrl;
     this.timeout = timeout;
   }
@@ -63,22 +62,18 @@ export class ApiClient {
     } catch (error: unknown) {
       clearTimeout(timeoutId);
       
-      // Type guard - sprawdź czy to ApiError
       if (error instanceof ApiError) {
         throw error;
       }
       
-      // Type guard - sprawdź czy to AbortError
       if (isAbortError(error)) {
         throw new Error('Request timeout');
       }
       
-      // Type guard - sprawdź czy to Error
       if (isError(error)) {
         throw new Error(`Network error: ${error.message}`);
       }
       
-      // Fallback dla nieznanego typu błędu
       throw new Error(`Network error: ${String(error)}`);
     }
   }

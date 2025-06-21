@@ -34,7 +34,7 @@ export const useGeolocation = (): UseGeolocationResult => {
         (error) => {
           setLoading(false);
           let errorMessage = 'Nie udało się pobrać lokalizacji';
-          
+
           switch (error.code) {
             case error.PERMISSION_DENIED:
               errorMessage = 'Dostęp do lokalizacji został odrzucony';
@@ -46,7 +46,7 @@ export const useGeolocation = (): UseGeolocationResult => {
               errorMessage = 'Przekroczono czas oczekiwania na lokalizację';
               break;
           }
-          
+
           setError(errorMessage);
           reject(new Error(errorMessage));
         },

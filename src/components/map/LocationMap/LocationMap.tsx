@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import { MapContainer, TileLayer, Marker, useMapEvents } from 'react-leaflet';
 import 'leaflet/dist/leaflet.css';
 
-// Fix dla ikon markerów Leaflet
 import icon from 'leaflet/dist/images/marker-icon.png';
 import iconShadow from 'leaflet/dist/images/marker-shadow.png';
 import L from 'leaflet';
@@ -38,7 +37,6 @@ const LocationMap: React.FC<LocationMapProps> = ({
             },
         });
 
-        // Aktualizuj widok mapy gdy pozycja się zmieni
         React.useEffect(() => {
             map.setView(position, map.getZoom());
         }, [position, map]);
@@ -46,7 +44,6 @@ const LocationMap: React.FC<LocationMapProps> = ({
         return position ? <Marker position={position} /> : null;
     };
 
-    // Aktualizuj pozycję gdy zmieni się initialPosition
     React.useEffect(() => {
         setPosition(initialPosition);
     }, [initialPosition]);

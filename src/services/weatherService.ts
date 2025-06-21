@@ -1,6 +1,6 @@
 interface WeatherData {
   averagePressure: number;
-  averageSunExposure: number;  // ← To jest OK
+  averageSunExposure: number;
   minTemperature: number;
   maxTemperature: number;
   weatherSummary: string;
@@ -13,8 +13,7 @@ interface WeatherData {
   }>;
 }
 
-const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:8080/api'; // ← Dodałem fallback
-if (!API_URL) throw new Error('VITE_API_URL not configured');
+const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:8080/api';
 
 export const fetchWeatherData = async (latitude: number, longitude: number): Promise<WeatherData> => {
   try {
@@ -23,7 +22,6 @@ export const fetchWeatherData = async (latitude: number, longitude: number): Pro
     );
     if (!response.ok) throw new Error(`API error: ${response.status}`);
     const data = await response.json();
-    console.log('API Response:', data); // ← Dodaj dla debugowania
     return data;
   } catch (error) {
     console.error('Error fetching weather data:', error);
