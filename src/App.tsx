@@ -1,12 +1,8 @@
-// src/App.tsx
-import WeatherDashboard from './components/WeatherDashboard'
+import React from 'react';
+import WeatherDashboard from './components/weather/WeatherDashboard';
 
-function App() {
-  return (
-    <>
-      <WeatherDashboard />
-    </>
-  )
-}
+const App: React.FC = () => {
+  return <WeatherDashboard />;
+};
 
-export default App
+export default App;
